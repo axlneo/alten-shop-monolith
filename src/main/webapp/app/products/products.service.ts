@@ -13,7 +13,6 @@ export class ProductsService {
 
     constructor(private http: HttpClient) { }
 
-  // TODO gestion des erreurs silencieuses
     getProducts(): Observable<Product[]> {
         if ( ! ProductsService.productslist )
         {
@@ -21,6 +20,8 @@ export class ProductsService {
                 ProductsService.productslist = data.products;
 
                 this.products$.next(ProductsService.productslist);
+                // TODO gestion des erreurs silencieuses
+                // this.products$.error((error) => console.log(error));
             });
         }
         else
@@ -34,19 +35,29 @@ export class ProductsService {
     create(prod: Product): Observable<Product[]> {
       const headers = { contentType: 'application/json' };
       this.http.post<any>('http://localhost:8080/api/v1/products', prod, { headers }).subscribe(data => {
+        ProductsService.productslist = data.products;
+
+        this.products$.next(ProductsService.productslist);
+        // TODO gestion des erreurs silencieuses
+       // this.products$.error((error) => console.log(error));
       });
-      ProductsService.productslist.push(prod);
-      this.products$.next(ProductsService.productslist);
+      // ProductsService.productslist.push(prod);
+      // this.products$.next(ProductsService.productslist);
       return this.products$;
     }
 
     update(prod: Product): Observable<Product[]>{
       const headers = { contentType: 'application/json' };
-      this.http.patch<any>('http://localhost:8080/api/v1/products', prod, { headers }).subscribe(data => {
+      this.http.patch<any>(`http://localhost:8080/api/v1/products/${prod.id}`, prod, { headers }).subscribe(data => {
+        ProductsService.productslist = data.products;
+
+        this.products$.next(ProductsService.productslist);
+        // TODO gestion des erreurs silencieuses
+        // this.products$.error((error) => console.log(error));
 
       });
 
-      ProductsService.productslist.forEach(element => {
+     /* ProductsService.productslist.forEach(element => {
           if (element.id === prod.id)
           {
               element.name = prod.name;
@@ -60,7 +71,7 @@ export class ProductsService {
               element.rating = prod.rating;
           }
       });
-      this.products$.next(ProductsService.productslist);
+      this.products$.next(ProductsService.productslist);*/
       return this.products$;
     }
 
@@ -68,10 +79,15 @@ export class ProductsService {
     delete(id: number): Observable<Product[]>{
       const headers = { contentType: 'application/json' };
       this.http.delete<any>('http://localhost:8080/api/v1/products/' + id, { headers }).subscribe(data => {
+        ProductsService.productslist = data.products;
+
+        this.products$.next(ProductsService.productslist);
+        // TODO gestion des erreurs silencieuses
+        // this.products$.error((error) => console.log(error));
 
       });
-      ProductsService.productslist = ProductsService.productslist.filter(value => value.id !== id );
-      this.products$.next(ProductsService.productslist);
+     /* ProductsService.productslist = ProductsService.productslist.filter(value => value.id !== id );
+      this.products$.next(ProductsService.productslist);*/
 
       return this.products$;
     }

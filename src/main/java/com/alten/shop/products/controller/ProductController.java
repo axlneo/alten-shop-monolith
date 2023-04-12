@@ -27,7 +27,7 @@ public class ProductController {
             throw new Exception("Les donnees ne sont pas valides");
         }
         productService.createProduct(product);
-        result.put("product", product);
+        result.put("products", productService.getAllProducts());
 
         return ResponseEntity.ok(result);
 
@@ -53,6 +53,7 @@ public class ProductController {
     public ResponseEntity<Map<String, Object>> removeProduct(@PathVariable("id") int productId) throws Exception{
         Map<String, Object> result = new HashMap<>();
         productService.deleteProduct(productId);
+        result.put("products", productService.getAllProducts());
         return ResponseEntity.ok(result);
     }
 
@@ -63,7 +64,7 @@ public class ProductController {
             throw new Exception("Les donnees ne sont pas valides");
         }
         productService.updateProduct(productId, product);
-        result.put("product", product);
+        result.put("products", productService.getAllProducts());
 
         return ResponseEntity.ok(result);
 

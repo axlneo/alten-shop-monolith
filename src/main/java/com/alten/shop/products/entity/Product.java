@@ -20,15 +20,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 1, max = 50)
     @Column(name="code", length = 50, nullable = false)
     String code;
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 1, max = 50)
     @Column(name="name", length = 50, nullable = false)
     String name;
     @NotBlank
-    @Size(min = 2, max = 500)
+    @Size(min = 1, max = 500)
     @Column(name="description", length = 500, nullable = false)
     String description;
     @NotNull
@@ -38,11 +38,11 @@ public class Product {
     @Column(name="quantity", length = 50, nullable = false)
     int quantity;
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 1, max = 50)
     @Column(name="inventoryStatus", length = 50, nullable = false)
     String inventoryStatus;
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 1, max = 50)
     @Column(name="category", length = 50, nullable = false)
     String category;
     @Column(name="image", length = 100)
