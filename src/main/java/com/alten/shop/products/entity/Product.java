@@ -51,8 +51,26 @@ public class Product {
     int rating;
 
     public void update(Product productDetail) {
-        if(productDetail.image != null){
-            this.image = productDetail.image;
-        }
+      if(productDetail.image != null){
+        this.image = productDetail.image;
+      }
+      if(productDetail.code != null){
+        this.code = productDetail.code;
+      }
+      if(productDetail.name != null){
+        this.name = productDetail.name;
+      }
+      if(productDetail.description != null){
+        this.description = productDetail.description;
+      }
+      this.price = productDetail.price;
+      this.quantity = productDetail.quantity;
+      if(productDetail.inventoryStatus != null){
+        this.inventoryStatus = productDetail.inventoryStatus;
+      }
+      if(productDetail.category != null){
+        this.category = productDetail.category;
+      }
+      this.rating = productDetail.rating;
     }
 }
