@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "9bcbe08f-57c9-4bb5-a2b4-656ad8a94352",
+		"name": "Alten Back Products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5889295"
+	},
+	"item": [
+		{
+			"name": "api/v1/products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"The response has at least one element with the properties\", () => {",
+							"    let response = pm.response.json();",
+							"    let expectedResults = response.products.filter(product => product.code == pm.environment.get(\"code\"))",
+							"    pm.expect(expectedResults).to.have.length.greaterThan(1)",
+							"    pm.environment.set(\"expectedId\", expectedResults[0].id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\t\"id\": \"\",\n\t\t\t\"code\": \"f230fh0g3\",\n\t\t\t\"name\": \"Bamboo Watch\",\n\t\t\t\"description\": \"Product Description\",\n\t\t\t\"image\": \"bamboo-watch.jpg\",\n\t\t\t\"price\": 65,\n\t\t\t\"category\": \"Accessories\",\n\t\t\t\"quantity\": 24,\n\t\t\t\"inventoryStatus\": \"INSTOCK\",\n\t\t\t\"rating\": 5\n\t\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "api/v1/products",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\t\t\"id\": 1000,\n\t\t\t\"code\": \"f230fh0g3\",\n\t\t\t\"name\": \"Bamboo Watch\",\n\t\t\t\"description\": \"Product Description\",\n\t\t\t\"image\": \"bamboo-watch.jpg\",\n\t\t\t\"price\": 65,\n\t\t\t\"category\": \"Accessories\",\n\t\t\t\"quantity\": 24,\n\t\t\t\"inventoryStatus\": \"INSTOCK\",\n\t\t\t\"rating\": 5\n\t\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "api/v1/products/{{expectedId}}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"The response has all properties\", () => {",
+							"    //parse the response json and test three properties",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson.product.code).to.eql(pm.environment.get(\"code\"));",
+							"    pm.expect(responseJson.product.name).to.be.eql('Bamboo Watch');",
+							"    pm.expect(responseJson.product.price).to.be.eql(65.0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/products/{{expectedId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{expectedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "api/v1/products",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 07 Apr 2023 16:27:25 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"products\": [\n        {\n            \"id\": 2,\n            \"code\": \"f230fh0g3\",\n            \"name\": \"Bamboo Watch\",\n            \"description\": \"Product Description\",\n            \"price\": 65,\n            \"quantity\": 24,\n            \"inventoryStatus\": \"INSTOCK\",\n            \"category\": \"Accessories\",\n            \"image\": \"bamboo.jpg\",\n            \"rating\": 5\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "api/v1/products/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/products/{{expectedId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{expectedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"The response has at least one element with the properties\", () => {",
+							"    let response = pm.response.json();",
+							"    let expectedResults = response.products.filter(product => product.id == pm.environment.get(\"expectedId\"))",
+							"    pm.expect(expectedResults).to.have.lengthOf(1)",
+							"    pm.expect(expectedResults[0].quantity).eql(25)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"code\": \"f230fh0g3\",\n    \"name\": \"Bamboo Watch\",\n    \"description\": \"Product Description\",\n    \"image\": \"bamboo.jpg\",\n    \"price\": 66,\n    \"category\": \"Accessories\",\n    \"quantity\": 25,\n    \"inventoryStatus\": \"INSTOCK\",\n    \"rating\": 6\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/products/{{expectedId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{expectedId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
